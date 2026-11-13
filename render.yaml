@@ -3,7 +3,7 @@ services:
     name: songbook
     runtime: python
     buildCommand: ./build.sh
-    startCommand: gunicorn config.wsgi --workers 2
+    startCommand: gunicorn config.wsgi:application --workers 2
     healthCheckPath: /healthz
     envVars:
       - key: DJANGO_SECRET_KEY
