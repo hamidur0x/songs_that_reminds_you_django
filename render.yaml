@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: songbook
+    runtime: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn config.wsgi --workers 2
+    healthCheckPath: /healthz
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.12.3
+    # Uploaded audio needs a persistent disk (or use "Audio URL" in the admin instead):
+    disk:
+      name: media
+      mountPath: /var/data
+      sizeGB: 1
